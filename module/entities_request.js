@@ -32,6 +32,7 @@ EntitiesRequest.prototype._headers = function() {
 
 EntitiesRequest.prototype._requestOptions = function() {
     var request_options = EntitiesRequest.super_.prototype._requestOptions.apply(this, arguments);
+    var self = this;
 
     request_options.path = this.endpoint + 'entities' + `/${self.name}/entries`;
     request_options.method = 'PUT';
