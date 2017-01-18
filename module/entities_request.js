@@ -16,7 +16,8 @@ util.inherits(EntitiesRequest, Request);
 function EntitiesRequest(application, entities, options) {
     var self = this;
 
-    self.entities = entities;
+    self.entries = entities.entries;
+    self.name = entities.name;
 
     EntitiesRequest.super_.apply(this, [application, options]);
 }
@@ -32,7 +33,7 @@ EntitiesRequest.prototype._headers = function() {
 EntitiesRequest.prototype._requestOptions = function() {
     var request_options = EntitiesRequest.super_.prototype._requestOptions.apply(this, arguments);
 
-    request_options.path = this.endpoint + 'entities';
+    request_options.path = this.endpoint + 'entities' + `/${self.name}/entries`;
     request_options.method = 'PUT';
 
     return request_options;
@@ -41,7 +42,7 @@ EntitiesRequest.prototype._requestOptions = function() {
 EntitiesRequest.prototype.end = function() {
     var self = this;
 
-    self.write(JSON.stringify(self.entities));
+    self.write(JSON.stringify(self.entries));
     
     EntitiesRequest.super_.prototype.end.apply(this, arguments);
 };
